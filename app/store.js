@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-t
 export const buildSetCandiesThunk = () => {
   return async dispatch => {
     try {
-      const { data } = await axios.get('../server/api/candies');
+      const { data } = await axios.get('/api/candies');
       dispatch(setCandiesActionCreator(data));
     } catch (err) {
       console.log('Oh noes! Ya messed up!');
@@ -16,7 +16,7 @@ export const buildSetCandiesThunk = () => {
   };
 };
 
-export default createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(

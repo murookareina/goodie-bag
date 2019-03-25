@@ -1,36 +1,22 @@
 import React from 'react';
-import { buildSetCandiesThunk } from '../store';
 import { AllCandies } from './AllCandies';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Navbar from './Navbar';
 
-export class DisconnectedRoot extends React.Component {
-  componentDidMount() {
-    this.props.fetchCandies();
-  }
-
-  render() {
-    return (
+const Root = props => {
+  return (
+    <Router>
       <div>
         <nav>Goodie Bag</nav>
         <main>
           <h1>Welcome to the Goodie Bag!</h1>
+          <Navbar />
           <p>What a nice home page for your goodies!</p>
-          <AllCandies candies={this.props.candies} />
+          <Route path="/candies" component={AllCandies} />
         </main>
       </div>
-    );
-  }
-}
+    </Router>
+  );
+};
 
-const mapStateToProps = state => ({
-  candies: state.candies,
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchCandies: () => dispatch(buildSetCandiesThunk()),
-});
-
-export const Root = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DisconnectedRoot);
+export default Root;
